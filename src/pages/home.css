@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
+@media (max-width: 510px) {
+  .wrapper {
+    width: 100%;
+  }
+}

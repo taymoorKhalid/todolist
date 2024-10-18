@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import "./style.css";
-import { Add } from "../../assets/svg/Add";
+
 import Button from "../../shared/Button";
+import icons from "../../assets/svg/icons";
 
 const TodoForm = ({ submitHandler }) => {
   const [input, setInput] = useState("");
@@ -29,7 +30,7 @@ const TodoForm = ({ submitHandler }) => {
         />
       </label>
       <Button type="submit" ariaLabel="Submit">
-        <Add />
+        {icons.add}
         <span className="visually-hidden">Submit</span>
       </Button>
     </form>

@@ -1,9 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./style.css";
-import { Edit } from "../../assets/svg/Edit";
-import { Bin } from "../../assets/svg/Bin";
-import { Toggle } from "../../assets/svg/Toggle";
 import Button from "../../shared/Button";
+import icons from "../../assets/svg/icons";
 
 const TodoItem = ({ item, toggleCompletion, deleteItem, editItem }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -50,7 +48,7 @@ const TodoItem = ({ item, toggleCompletion, deleteItem, editItem }) => {
       ) : (
         <>
           <Button className="item-left" onClick={toggleCompletion}>
-            <Toggle item={item} />
+            {icons.toggle({ item })}
             <p
               style={{
                 textDecoration: item.isCompleted ? "line-through" : "none",
@@ -70,11 +68,11 @@ const TodoItem = ({ item, toggleCompletion, deleteItem, editItem }) => {
               }}
             >
               <span class="visually-hidden">Edit</span>
-              <Edit />
+              {icons.add}
             </Button>
             <Button onClick={deleteItem}>
               <span class="visually-hidden">Delete</span>
-              <Bin />
+              {icons.bin}
             </Button>
           </div>
         </>

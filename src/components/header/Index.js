@@ -1,11 +1,11 @@
 import React from "react";
 import "./style.css";
-import { Logo } from "../../assets/svg/Logo";
+import icons from "../../assets/svg/icons";
 
 const Header = () => {
   return (
     <header className="header">
-      <Logo />
+      {icons.logo}
       <h1 className="title">TODO</h1>
     </header>
   );

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Header from "../components/header/Header";
-import TodoForm from "../components/todoForm/TodoForm";
-import TodoList from "../components/todoList/TodoList";
+import Header from "../components/header/Index";
+import TodoForm from "../components/todoForm/Index";
+import TodoList from "../components/todoList/Index";
 import "./home.css";
-import Section from "../components/section/Section";
+import Section from "../components/section/Index";
 
 const Home = () => {
   const [todos, setTodos] = useState([]);

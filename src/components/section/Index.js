@@ -1,7 +1,7 @@
 import React from "react";
-import "./section.css";
+import "./style.css";
 
-const Section = (props) => {
+const Section = ({ total, completedCount }) => {
   return (
     <section className="section">
       <div className="">
@@ -9,7 +9,7 @@ const Section = (props) => {
         <p className="text-small">Keep it up</p>
       </div>
       <div className="counter">
-        {props.completedCount}/{props.total}
+        {completedCount}/{total}
       </div>
     </section>
   );

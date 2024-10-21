@@ -1,27 +1,43 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./style.css";
 import Button from "../../shared/Button";
 import icons from "../../assets/svg/icons";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store/store";
+import { toggleTodo, deleteTodo, editTodo } from "../../store/todo/todoSlice";
 
-const TodoItem = ({ item, toggleCompletion, deleteItem, editItem }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [newText, setNewText] = useState(item.text);
+import "./style.css";
 
-  const inputRef = useRef(null);
+interface TodoItemProps {
+  index: number;
+}
+
+const TodoItem: React.FC<TodoItemProps> = ({ index }) => {
+  const item = useSelector((state: RootState) => state.todoList.todos[index]);
+  const dispatch = useDispatch();
+
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [newText, setNewText] = useState<string>(item.text);
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (isEditing) {
-      inputRef.current.focus();
+      inputRef.current?.focus();
     }
   }, [isEditing]);
 
-  const handleEditChange = (e) => {
+  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewText(e.target.value);
   };
 
-  const handleEditSubmit = (e) => {
+  const handleEditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    editItem(newText); // Call editItem with the new text
+    dispatch(
+      editTodo({
+        index,
+        text: newText,
+      })
+    );
     setIsEditing(false);
   };
 
@@ -47,7 +63,12 @@ const TodoItem = ({ item, toggleCompletion, deleteItem, editItem }) => {
         </form>
       ) : (
         <>
-          <Button className="item-left" onClick={toggleCompletion}>
+          <Button
+            className="item-left"
+            onClick={() => {
+              dispatch(toggleTodo(index));
+            }}
+          >
             {icons.toggle({ item })}
             <p
               style={{
@@ -61,17 +82,21 @@ const TodoItem = ({ item, toggleCompletion, deleteItem, editItem }) => {
               {item.text}
             </p>
           </Button>
-          <div class="item-right">
+          <div className="item-right">
             <Button
               onClick={() => {
                 setIsEditing(true);
               }}
             >
-              <span class="visually-hidden">Edit</span>
-              {icons.add}
+              <span className="visually-hidden">Edit</span>
+              {icons.edit}
             </Button>
-            <Button onClick={deleteItem}>
-              <span class="visually-hidden">Delete</span>
+            <Button
+              onClick={() => {
+                dispatch(deleteTodo(index));
+              }}
+            >
+              <span className="visually-hidden">Delete</span>
               {icons.bin}
             </Button>
           </div>

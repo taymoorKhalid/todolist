@@ -1,37 +1,17 @@
 import React from "react";
-import "./style.css";
 import TodoItem from "../todoItem";
 
-interface Todo {
-  text: string;
-  isCompleted: boolean;
-}
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
-interface TodoListProps {
-  todos: Todo[]; // Array of Todo items
-  toggleCompletion: (index: number) => void; // Function to toggle completion
-  deleteItem: (index: number) => void; // Function to delete an item
-  editItem: (index: number, newText: string) => void; // Function to edit an item
-}
+import "./style.css";
 
-const TodoList: React.FC<TodoListProps> = ({
-  todos,
-  toggleCompletion,
-  deleteItem,
-  editItem,
-}) => {
+const TodoList: React.FC = () => {
+  const todos = useSelector((state: RootState) => state.todoList.todos);
   return (
     <ol className="todoList">
       {todos.length > 0 ? (
-        todos.map((todo, index) => (
-          <TodoItem
-            key={index}
-            item={todo}
-            toggleCompletion={() => toggleCompletion(index)}
-            deleteItem={() => deleteItem(index)}
-            editItem={(newText) => editItem(index, newText)}
-          />
-        ))
+        todos.map((todo, index) => <TodoItem key={index} index={index} />)
       ) : (
         <p>Seems lonely in here, what are you upto?</p>
       )}

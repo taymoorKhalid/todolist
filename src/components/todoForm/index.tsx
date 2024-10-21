@@ -1,24 +1,23 @@
 import React from "react";
 import { useState } from "react";
-import "./style.css";
 
 import Button from "../../shared/Button";
 import icons from "../../assets/svg/icons";
+import { addTodo } from "../../store/todo/todoSlice";
+import { useDispatch } from "react-redux";
 
-interface Todo {
-  text: string;
-  isCompleted: boolean;
-}
+import "./style.css";
 
-// Define the props interface
-interface TodoFormProps {
-  submitHandler: (goal: Todo) => void; // This remains the same since the function does not return a value
-}
-const TodoForm: React.FC<TodoFormProps> = ({ submitHandler }) => {
+const TodoForm: React.FC = () => {
   const [input, setInput] = useState<string>("");
+  const dispatch = useDispatch();
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
+  };
+
+  const submitHandler = (goal: { text: string; isCompleted: boolean }) => {
+    dispatch(addTodo(goal));
   };
 
   const formSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {

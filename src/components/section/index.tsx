@@ -1,12 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import "./style.css";
+import { RootState } from "../../store/store";
 
-interface SectionProps {
-  total: number; // Total number of tasks
-  completedCount: number; // Count of completed tasks
-}
+const Section: React.FC = () => {
+  const todos = useSelector((state: RootState) => state.todoList.todos);
+  const completedCount: number = todos.filter(
+    (todo) => todo.isCompleted
+  ).length;
 
-const Section: React.FC<SectionProps> = ({ total, completedCount }) => {
   return (
     <section className="section">
       <div>
@@ -14,7 +17,7 @@ const Section: React.FC<SectionProps> = ({ total, completedCount }) => {
         <p className="text-small">Keep it up</p>
       </div>
       <div className="counter">
-        {completedCount}/{total}
+        {completedCount}/{todos.length}
       </div>
     </section>
   );

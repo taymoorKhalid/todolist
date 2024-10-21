@@ -1,24 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./style.css";
 import Button from "../../shared/Button";
 import icons from "../../assets/svg/icons";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store/store";
+import { toggleTodo, deleteTodo, editTodo } from "../../store/todo/todoSlice";
+
+import "./style.css";
 
 interface TodoItemProps {
-  item: {
-    text: string;
-    isCompleted: boolean;
-  };
-  toggleCompletion: () => void; // Function to toggle completion
-  deleteItem: () => void; // Function to delete item
-  editItem: (newText: string) => void; // Function to edit item with new text
+  index: number;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({
-  item,
-  toggleCompletion,
-  deleteItem,
-  editItem,
-}) => {
+const TodoItem: React.FC<TodoItemProps> = ({ index }) => {
+  const item = useSelector((state: RootState) => state.todoList.todos[index]);
+  const dispatch = useDispatch();
+
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [newText, setNewText] = useState<string>(item.text);
 
@@ -36,7 +32,12 @@ const TodoItem: React.FC<TodoItemProps> = ({
 
   const handleEditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    editItem(newText); // Call editItem with the new text
+    dispatch(
+      editTodo({
+        index,
+        text: newText,
+      })
+    );
     setIsEditing(false);
   };
 
@@ -62,7 +63,12 @@ const TodoItem: React.FC<TodoItemProps> = ({
         </form>
       ) : (
         <>
-          <Button className="item-left" onClick={toggleCompletion}>
+          <Button
+            className="item-left"
+            onClick={() => {
+              dispatch(toggleTodo(index));
+            }}
+          >
             {icons.toggle({ item })}
             <p
               style={{
@@ -85,7 +91,11 @@ const TodoItem: React.FC<TodoItemProps> = ({
               <span className="visually-hidden">Edit</span>
               {icons.edit}
             </Button>
-            <Button onClick={deleteItem}>
+            <Button
+              onClick={() => {
+                dispatch(deleteTodo(index));
+              }}
+            >
               <span className="visually-hidden">Delete</span>
               {icons.bin}
             </Button>

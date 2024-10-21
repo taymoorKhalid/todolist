@@ -16,7 +16,7 @@
   width: 100%;
   padding: 12px;
   border-radius: 11px;
-  background-color: #1f2937;
+  background-color: #1f2937 !important;
   color: white;
   border: none;
   height: 50px;
@@ -39,4 +39,14 @@
   width: 1px !important;
   overflow: hidden;
   white-space: nowrap;
+}
+
+#todo:-webkit-autofill {
+  background-color: #1f2937 !important; /* Match the desired background color */
+  color: white !important; /* Ensure the text remains white */
+}
+
+/* Prevent the autofill background color from flashing */
+#todo:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s; /* Keep the background and text color stable */
 }

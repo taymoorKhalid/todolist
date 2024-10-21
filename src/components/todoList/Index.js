@@ -2,24 +2,7 @@ import React from "react";
 import "./style.css";
 import TodoItem from "../todoItem";
 
-interface Todo {
-  text: string;
-  isCompleted: boolean;
-}
-
-interface TodoListProps {
-  todos: Todo[]; // Array of Todo items
-  toggleCompletion: (index: number) => void; // Function to toggle completion
-  deleteItem: (index: number) => void; // Function to delete an item
-  editItem: (index: number, newText: string) => void; // Function to edit an item
-}
-
-const TodoList: React.FC<TodoListProps> = ({
-  todos,
-  toggleCompletion,
-  deleteItem,
-  editItem,
-}) => {
+const TodoList = ({ todos, toggleCompletion, deleteItem, editItem }) => {
   return (
     <ol className="todoList">
       {todos.length > 0 ? (

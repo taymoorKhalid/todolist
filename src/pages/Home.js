@@ -5,21 +5,16 @@ import TodoList from "../components/todoList";
 import "./home.css";
 import Section from "../components/section";
 
-const Home: React.FC = () => {
-  interface Todo {
-    text: string;
-    isCompleted: boolean;
-  }
+const Home = () => {
+  const [todos, setTodos] = useState([]);
 
-  const [todos, setTodos] = useState<Todo[]>([]);
-
-  const submitHandler = (goal: Todo) => {
+  const submitHandler = (goal) => {
     setTodos((prevValues) => {
       return [...prevValues, { text: goal.text, isCompleted: false }];
     });
   };
 
-  const toggleCompletion = (index: number) => {
+  const toggleCompletion = (index) => {
     setTodos((prevTodos) => {
       const updatedTodos = [...prevTodos];
       updatedTodos[index].isCompleted = !updatedTodos[index].isCompleted;
@@ -29,12 +24,12 @@ const Home: React.FC = () => {
 
   const completedCount = todos.filter((todo) => todo.isCompleted).length;
 
-  const deleteItem = (index: number) => {
+  const deleteItem = (index) => {
     const updatedTodos = todos.filter((_, i) => i !== index);
     setTodos(updatedTodos);
   };
 
-  const editItem = (index: number, newText: string) => {
+  const editItem = (index, newText) => {
     const updatedTodos = [...todos];
     updatedTodos[index].text = newText;
     setTodos(updatedTodos);

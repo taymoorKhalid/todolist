@@ -1,15 +1,10 @@
 import React from "react";
 import "./style.css";
 
-interface SectionProps {
-  total: number; // Total number of tasks
-  completedCount: number; // Count of completed tasks
-}
-
-const Section: React.FC<SectionProps> = ({ total, completedCount }) => {
+const Section = ({ total, completedCount }) => {
   return (
     <section className="section">
-      <div>
+      <div className="">
         <p className="text-large">Task Done</p>
         <p className="text-small">Keep it up</p>
       </div>

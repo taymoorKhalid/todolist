@@ -3,38 +3,23 @@ import "./style.css";
 import Button from "../../shared/Button";
 import icons from "../../assets/svg/icons";
 
-interface TodoItemProps {
-  item: {
-    text: string;
-    isCompleted: boolean;
-  };
-  toggleCompletion: () => void; // Function to toggle completion
-  deleteItem: () => void; // Function to delete item
-  editItem: (newText: string) => void; // Function to edit item with new text
-}
+const TodoItem = ({ item, toggleCompletion, deleteItem, editItem }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [newText, setNewText] = useState(item.text);
 
-const TodoItem: React.FC<TodoItemProps> = ({
-  item,
-  toggleCompletion,
-  deleteItem,
-  editItem,
-}) => {
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [newText, setNewText] = useState<string>(item.text);
-
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (isEditing) {
-      inputRef.current?.focus();
+      inputRef.current.focus();
     }
   }, [isEditing]);
 
-  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEditChange = (e) => {
     setNewText(e.target.value);
   };
 
-  const handleEditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEditSubmit = (e) => {
     e.preventDefault();
     editItem(newText); // Call editItem with the new text
     setIsEditing(false);
@@ -76,17 +61,17 @@ const TodoItem: React.FC<TodoItemProps> = ({
               {item.text}
             </p>
           </Button>
-          <div className="item-right">
+          <div class="item-right">
             <Button
               onClick={() => {
                 setIsEditing(true);
               }}
             >
-              <span className="visually-hidden">Edit</span>
-              {icons.edit}
+              <span class="visually-hidden">Edit</span>
+              {icons.add}
             </Button>
             <Button onClick={deleteItem}>
-              <span className="visually-hidden">Delete</span>
+              <span class="visually-hidden">Delete</span>
               {icons.bin}
             </Button>
           </div>

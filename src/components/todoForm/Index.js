@@ -5,31 +5,22 @@ import "./style.css";
 import Button from "../../shared/Button";
 import icons from "../../assets/svg/icons";
 
-interface Todo {
-  text: string;
-  isCompleted: boolean;
-}
+const TodoForm = ({ submitHandler }) => {
+  const [input, setInput] = useState("");
 
-// Define the props interface
-interface TodoFormProps {
-  submitHandler: (goal: Todo) => void; // This remains the same since the function does not return a value
-}
-const TodoForm: React.FC<TodoFormProps> = ({ submitHandler }) => {
-  const [input, setInput] = useState<string>("");
-
-  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const inputChangeHandler = (event) => {
     setInput(event.target.value);
   };
 
-  const formSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const formSubmitHandler = (event) => {
     event.preventDefault();
-    submitHandler({ text: input, isCompleted: false });
+    submitHandler({ text: input });
     setInput("");
   };
 
   return (
     <form className="form" onSubmit={formSubmitHandler}>
-      <label htmlFor="todo">
+      <label for="todo">
         <input
           id="todo"
           type="text"

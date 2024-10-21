@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import icons from "../../assets/svg/icons";
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <header className="header">
       {icons.logo}

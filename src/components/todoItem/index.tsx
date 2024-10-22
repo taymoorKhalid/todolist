@@ -1,23 +1,26 @@
 import React, { useState, useRef, useEffect } from "react";
 import Button from "../../shared/Button";
 import icons from "../../assets/svg/icons";
-import { useAppDispatch, useAppSelector } from "../../types/types";
-import { toggleTodo, deleteTodo, editTodo } from "../../store/todo/todoSlice";
 
 import "./style.css";
 
 interface TodoItemProps {
-  index: number;
+  todo: { text: string; isCompleted: boolean };
+  onToggleTodo: () => void;
+  onDeleteTodo: () => void;
+  onEditTodo: (newText: string) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ index }) => {
+const TodoItem: React.FC<TodoItemProps> = ({
+  todo,
+  onToggleTodo,
+  onDeleteTodo,
+  onEditTodo,
+}) => {
   const { toggle, edit, bin } = icons;
 
-  const item = useAppSelector((state) => state.todoList.todos[index]);
-  const dispatch = useAppDispatch();
-
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [newText, setNewText] = useState<string>(item.text);
+  const [newText, setNewText] = useState<string>(todo.text);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -33,17 +36,12 @@ const TodoItem: React.FC<TodoItemProps> = ({ index }) => {
 
   const handleEditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(
-      editTodo({
-        index,
-        text: newText,
-      })
-    );
+    onEditTodo(newText);
     setIsEditing(false);
   };
 
   const handleCancelEdit = () => {
-    setNewText(item.text); // Reset the text back to original
+    setNewText(todo.text); // Reset the text back to original
     setIsEditing(false); // Close the edit mode
   };
 
@@ -64,23 +62,18 @@ const TodoItem: React.FC<TodoItemProps> = ({ index }) => {
         </form>
       ) : (
         <>
-          <Button
-            className="item-left"
-            onClick={() => {
-              dispatch(toggleTodo(index));
-            }}
-          >
-            {toggle({ item })}
+          <Button className="item-left" onClick={onToggleTodo}>
+            {toggle({ todo })}
             <p
               style={{
-                textDecoration: item.isCompleted ? "line-through" : "none",
+                textDecoration: todo.isCompleted ? "line-through" : "none",
                 wordWrap: "break-word",
                 whiteSpace: "normal",
                 maxWidth: "100%",
                 overflowWrap: "anywhere",
               }}
             >
-              {item.text}
+              {todo.text}
             </p>
           </Button>
           <div className="item-right">
@@ -92,11 +85,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ index }) => {
               <span className="visually-hidden">Edit</span>
               {edit}
             </Button>
-            <Button
-              onClick={() => {
-                dispatch(deleteTodo(index));
-              }}
-            >
+            <Button onClick={onDeleteTodo}>
               <span className="visually-hidden">Delete</span>
               {bin}
             </Button>

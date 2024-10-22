@@ -1,15 +1,24 @@
 import React from "react";
-import TodoItem from "../todoItem";
-import { useAppSelector } from "../../types/types";
 
 import "./style.css";
+import TodoItemContainer from "../containers/TodoItemContainer";
 
-const TodoList: React.FC = () => {
-  const todos = useAppSelector((state) => state.todoList.todos);
+interface Todo {
+  text: string;
+  isCompleted: boolean;
+}
+
+interface TodoListProps {
+  todos: Todo[];
+}
+
+const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   return (
     <ol className="todoList">
       {todos.length > 0 ? (
-        todos.map((todo, index) => <TodoItem key={index} index={index} />)
+        todos.map((todo, index) => (
+          <TodoItemContainer key={index} index={index} todo={todo} />
+        ))
       ) : (
         <p>Seems lonely in here, what are you upto?</p>
       )}

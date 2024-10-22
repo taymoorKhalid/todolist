@@ -2,14 +2,15 @@ import React, { useState } from "react";
 
 import Button from "../../shared/Button";
 import icons from "../../assets/svg/icons";
-import { addTodo } from "../../store/todo/todoSlice";
-import { useAppDispatch } from "../../types/types";
 
 import "./style.css";
 
-const TodoForm: React.FC = () => {
+interface TodoFormProps {
+  addTodo: (todo: { text: string; isCompleted: boolean }) => void;
+}
+
+const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
   const [input, setInput] = useState<string>("");
-  const dispatch = useAppDispatch();
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
@@ -17,7 +18,7 @@ const TodoForm: React.FC = () => {
 
   const formSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(addTodo({ text: input, isCompleted: false }));
+    addTodo({ text: input, isCompleted: false });
     setInput("");
   };
 

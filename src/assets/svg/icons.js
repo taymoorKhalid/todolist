@@ -64,7 +64,7 @@ const icons = {
       width="34"
       height="34"
       stroke="#22C55E"
-      fill={props.item.isCompleted ? "#22C55E" : "#0d0d0d"} // Access the prop here
+      fill={props.todo.isCompleted ? "#22C55E" : "#0d0d0d"} // Access the prop here
     >
       <circle cx="11.998" cy="11.998" fillRule="nonzero" r="9.998"></circle>
     </svg>

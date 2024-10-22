@@ -1,15 +1,13 @@
 import React from "react";
 
-import { useAppSelector } from "../../types/types";
-
 import "./style.css";
 
-const Section: React.FC = () => {
-  const todos = useAppSelector((state) => state.todoList.todos);
-  const completedCount: number = todos.filter(
-    (todo) => todo.isCompleted
-  ).length;
+interface SectionProps {
+  completedCount: number;
+  todosLength: number;
+}
 
+const Section: React.FC<SectionProps> = ({ completedCount, todosLength }) => {
   return (
     <section className="section">
       <div>
@@ -17,7 +15,7 @@ const Section: React.FC = () => {
         <p className="text-small">Keep it up</p>
       </div>
       <div className="counter">
-        {completedCount}/{todos.length}
+        {completedCount}/{todosLength}
       </div>
     </section>
   );

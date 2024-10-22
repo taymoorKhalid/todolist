@@ -1,28 +1,23 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 import Button from "../../shared/Button";
 import icons from "../../assets/svg/icons";
 import { addTodo } from "../../store/todo/todoSlice";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../types/types";
 
 import "./style.css";
 
 const TodoForm: React.FC = () => {
   const [input, setInput] = useState<string>("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
   };
 
-  const submitHandler = (goal: { text: string; isCompleted: boolean }) => {
-    dispatch(addTodo(goal));
-  };
-
   const formSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitHandler({ text: input, isCompleted: false });
+    dispatch(addTodo({ text: input, isCompleted: false }));
     setInput("");
   };
 

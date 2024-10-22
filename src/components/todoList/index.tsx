@@ -1,13 +1,11 @@
 import React from "react";
 import TodoItem from "../todoItem";
-
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { useAppSelector } from "../../types/types";
 
 import "./style.css";
 
 const TodoList: React.FC = () => {
-  const todos = useSelector((state: RootState) => state.todoList.todos);
+  const todos = useAppSelector((state) => state.todoList.todos);
   return (
     <ol className="todoList">
       {todos.length > 0 ? (

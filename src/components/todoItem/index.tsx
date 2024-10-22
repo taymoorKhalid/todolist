@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Button from "../../shared/Button";
 import icons from "../../assets/svg/icons";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../store/store";
+import { useAppDispatch, useAppSelector } from "../../types/types";
 import { toggleTodo, deleteTodo, editTodo } from "../../store/todo/todoSlice";
 
 import "./style.css";
@@ -12,8 +11,10 @@ interface TodoItemProps {
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({ index }) => {
-  const item = useSelector((state: RootState) => state.todoList.todos[index]);
-  const dispatch = useDispatch();
+  const { toggle, edit, bin } = icons;
+
+  const item = useAppSelector((state) => state.todoList.todos[index]);
+  const dispatch = useAppDispatch();
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [newText, setNewText] = useState<string>(item.text);
@@ -69,7 +70,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ index }) => {
               dispatch(toggleTodo(index));
             }}
           >
-            {icons.toggle({ item })}
+            {toggle({ item })}
             <p
               style={{
                 textDecoration: item.isCompleted ? "line-through" : "none",
@@ -89,7 +90,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ index }) => {
               }}
             >
               <span className="visually-hidden">Edit</span>
-              {icons.edit}
+              {edit}
             </Button>
             <Button
               onClick={() => {
@@ -97,7 +98,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ index }) => {
               }}
             >
               <span className="visually-hidden">Delete</span>
-              {icons.bin}
+              {bin}
             </Button>
           </div>
         </>

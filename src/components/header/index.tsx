@@ -1,11 +1,13 @@
 import React from "react";
-import "./style.css";
 import icons from "../../assets/svg/icons";
 
+import "./style.css";
+
 const Header: React.FC = () => {
+  const { logo } = icons;
   return (
     <header className="header">
-      {icons.logo}
+      {logo}
       <h1 className="title">TODO</h1>
     </header>
   );

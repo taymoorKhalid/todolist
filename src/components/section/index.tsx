@@ -1,11 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
+
+import { useAppSelector } from "../../types/types";
 
 import "./style.css";
-import { RootState } from "../../store/store";
 
 const Section: React.FC = () => {
-  const todos = useSelector((state: RootState) => state.todoList.todos);
+  const todos = useAppSelector((state) => state.todoList.todos);
   const completedCount: number = todos.filter(
     (todo) => todo.isCompleted
   ).length;

@@ -1,16 +1,22 @@
 import { connect } from "react-redux";
+import {
+  toggleTodoAction,
+  deleteTodoAction,
+  editTodoAction,
+} from "../../store/actions/actions";
 
-import { toggleTodo, deleteTodo, editTodo } from "../../store/todo/todoSlice";
 import TodoItem from "../todoItem";
 
 const mapDispatchToProps = (
   dispatch: any,
   ownProps: { index: number; todo: { text: string; isCompleted: boolean } }
 ) => ({
-  onToggleTodo: () => dispatch(toggleTodo(ownProps.index)),
-  onDeleteTodo: () => dispatch(deleteTodo(ownProps.index)),
-  onEditTodo: (newText: string) =>
-    dispatch(editTodo({ index: ownProps.index, text: newText })),
+  onToggleTodo: () => dispatch(toggleTodoAction.STARTED(ownProps.index)),
+
+  onDeleteTodo: () => dispatch(deleteTodoAction.STARTED(ownProps.index)),
+
+  onEditTodo: (text: string) =>
+    dispatch(editTodoAction.STARTED(ownProps.index, text)),
 });
 
 export default connect(null, mapDispatchToProps)(TodoItem);

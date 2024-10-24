@@ -1,12 +1,12 @@
 // TodoFormContainer.tsx
 
 import { connect } from "react-redux";
-import { addTodo } from "../../store/todo/todoSlice";
 import TodoForm from "../todoForm";
+import { TODO } from "../../types/types";
+import { addTodoAction } from "../../store/actions/actions";
 
 const mapDispatchToProps = (dispatch: any) => ({
-  addTodo: (todo: { text: string; isCompleted: boolean }) =>
-    dispatch(addTodo(todo)),
+  addTodo: (todo: TODO) => dispatch(addTodoAction.STARTED(todo)),
 });
 
 export default connect(null, mapDispatchToProps)(TodoForm);

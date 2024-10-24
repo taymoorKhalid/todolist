@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import Button from "../../shared/Button";
 import icons from "../../assets/svg/icons";
+import { TODO } from "../../types/types";
 
 import "./style.css";
 
 interface TodoItemProps {
-  todo: { text: string; isCompleted: boolean };
+  todo: TODO;
   onToggleTodo: () => void;
   onDeleteTodo: () => void;
   onEditTodo: (newText: string) => void;

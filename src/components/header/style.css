@@ -1,18 +1,43 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   padding: 42px;
   gap: 12px;
 }
 
 .title {
-  display: block;
   font-size: 2em;
+}
+
+/* Button styling */
+.header-button {
+  margin-left: auto; /* This pushes the button to the right */
+  background-color: #4caf50; /* Green color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for button */
+.header-button:hover {
+  background-color: #388e3c; /* Darker green */
 }
 
 @media (max-width: 510px) {
   .header {
-    justify-content: flex-start;
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 1.5em;
+  }
+
+  .header-button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
   }
 }

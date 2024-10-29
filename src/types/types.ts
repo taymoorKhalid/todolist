@@ -24,4 +24,14 @@ export enum TodoActionTypes {
   UPDATE_TODO_FAILURE = "updateTodoFailure",
 }
 
+export enum authActionTypes {
+  LOGIN_REQUEST = "loginRequest",
+  LOGIN_SUCCESS = "loginSuccess",
+  LOGIN_FAILURE = "loginFailure",
+
+  LOGOUT_REQUEST = "logoutRequest",
+  LOGOUT_SUCCESS = "logoutSuccess",
+  LOGOUT_FAILURE = "logoutFailure",
+}
+
 export type TODO = { text: string; isCompleted: boolean };

@@ -56,7 +56,6 @@ export const todoReducer = (state = initialState, action: any) => {
         ),
       };
 
-    // Handle more cases like TOGGLE_TODO_SUCCESS...
     default:
       return state;
   }

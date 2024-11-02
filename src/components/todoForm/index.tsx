@@ -1,26 +1,29 @@
-import React from "react";
-import { useState } from "react";
-import "./style.css";
+import React, { useState } from "react";
 
 import Button from "../../shared/Button";
 import icons from "../../assets/svg/icons";
+import { addTodo } from "../../store/todo/todoSlice";
+import { useAppDispatch } from "../../types/types";
 
-const TodoForm = ({ submitHandler }) => {
-  const [input, setInput] = useState("");
+import "./style.css";
 
-  const inputChangeHandler = (event) => {
+const TodoForm: React.FC = () => {
+  const [input, setInput] = useState<string>("");
+  const dispatch = useAppDispatch();
+
+  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
   };
 
-  const formSubmitHandler = (event) => {
+  const formSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitHandler({ text: input });
+    dispatch(addTodo({ text: input, isCompleted: false }));
     setInput("");
   };
 
   return (
     <form className="form" onSubmit={formSubmitHandler}>
-      <label for="todo">
+      <label htmlFor="todo">
         <input
           id="todo"
           type="text"

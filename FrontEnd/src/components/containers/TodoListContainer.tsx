@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { RootState } from "../../store/store";
-import { fetchTodosAction } from "../../store/actions/actions";
+import { fetchTodosAction } from "../../store/actions/todoActions";
 import TodoList from "../todoList";
 
 const mapStateToProps = (state: RootState) => {

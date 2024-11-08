@@ -1,7 +1,7 @@
 // store/store.ts
 
 import { configureStore } from "@reduxjs/toolkit";
-import { todoReducer } from "./reducers/reducers";
+import todoReducer from "./reducers/todoReducers";
 import authReducer from "./reducers/authReducer"; // Import the auth reducer
 
 import createSagaMiddleware from "redux-saga";

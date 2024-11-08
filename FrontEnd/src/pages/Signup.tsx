@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import icons from "../assets/svg/icons";
-
+import InputField from "../shared/Input"; // Import the InputField component
 import "./signup.css";
 import Loader from "../shared/Loader";
 
@@ -39,13 +39,12 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password")], "Passwords must match"),
 });
 
-type FormValues = yup.InferType<typeof schema>;
+export type FormValues = yup.InferType<typeof schema>;
 
 interface SignupProps {
   onSignup: (data: { email: string; password: string }) => void;
   isLoading: boolean;
 }
-
 const Signup: React.FC<SignupProps> = ({ onSignup, isLoading }) => {
   const { logo } = icons;
   const navigate = useNavigate();
@@ -71,41 +70,64 @@ const Signup: React.FC<SignupProps> = ({ onSignup, isLoading }) => {
           {logo}
           <h1>Signup</h1>
         </div>
-        <input placeholder="First Name" {...register("firstName")} />
-        <p>{errors.firstName?.message}</p>
-
-        <input placeholder="Last Name" {...register("lastName")} />
-        <p>{errors.lastName?.message}</p>
-
-        <input placeholder="Email" {...register("email")} />
-        <p>{errors.email?.message}</p>
-
-        <input type="number" placeholder="Age" {...register("age")} />
-        <p>{errors.age?.message}</p>
-
-        <input
-          placeholder="Notification Emails"
-          {...register("notificationEmails")}
+        {/* Use InputField for each input */}
+        <InputField
+          name="firstName"
+          type="text"
+          placeholder="First Name"
+          register={register}
+          errorMessage={errors.firstName?.message}
         />
-        <p>{errors.notificationEmails?.message}</p>
+        <InputField
+          name="lastName"
+          type="text"
+          placeholder="Last Name"
+          register={register}
+          errorMessage={errors.lastName?.message}
+        />
+        <InputField
+          name="email"
+          type="email"
+          placeholder="Email"
+          register={register}
+          errorMessage={errors.email?.message}
+        />
+        <InputField
+          name="age"
+          type="number"
+          placeholder="Age"
+          register={register}
+          errorMessage={errors.age?.message}
+        />
+        <InputField
+          name="notificationEmails"
+          type="text"
+          placeholder="Notification Emails"
+          register={register}
+          errorMessage={errors.notificationEmails?.message}
+        />
+        <InputField
+          name="contactNumber"
+          type="text"
+          placeholder="Contact Number"
+          register={register}
+          errorMessage={errors.contactNumber?.message}
+        />
 
-        <input placeholder="Contact Number" {...register("contactNumber")} />
-        <p>{errors.contactNumber?.message}</p>
-
-        <input
+        <InputField
+          name="password"
           type="password"
           placeholder="Password"
-          {...register("password")}
+          register={register}
+          errorMessage={errors.password?.message}
         />
-        <p>{errors.password?.message}</p>
-
-        <input
+        <InputField
+          name="confirmPassword"
           type="password"
           placeholder="Confirm Password"
-          {...register("confirmPassword")}
+          register={register}
+          errorMessage={errors.confirmPassword?.message}
         />
-        <p>{errors.confirmPassword?.message}</p>
-
         <button type="submit" disabled={!isValid}>
           Signup
         </button>

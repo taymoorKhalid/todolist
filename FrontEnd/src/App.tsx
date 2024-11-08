@@ -42,7 +42,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <ToastContainer autoClose={2000} />
+      <ToastContainer autoClose={1000} />
       <Routes>
         {!isAuthenticated ? (
           <>

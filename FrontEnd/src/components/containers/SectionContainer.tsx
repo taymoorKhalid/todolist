@@ -4,7 +4,7 @@ import Section from "../section";
 import { TODO } from "../../types/types";
 
 const mapStateToProps = (state: RootState) => {
-  const todos = state.todoList.todos;
+  const todos = state.todoList.todos || [];
   const completedCount = todos.filter((todo: TODO) => todo.isCompleted).length;
   return {
     completedCount,

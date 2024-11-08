@@ -7,7 +7,7 @@ const initialState = {
   error: null as string | null,
 };
 
-export const todoReducer = (state = initialState, action: any) => {
+const todoReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case TodoActionTypes.FETCH_TODOS_REQUEST:
       return { ...state, isFetching: true, error: null };
@@ -85,3 +85,5 @@ export const todoReducer = (state = initialState, action: any) => {
       return state;
   }
 };
+
+export default todoReducer;

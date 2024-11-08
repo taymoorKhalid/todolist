@@ -34,6 +34,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
+    reValidateMode: "onSubmit",
   });
 
   const formSubmitHandler = (data: FormData) => {
@@ -49,9 +50,9 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
           id="todo"
           type="text"
           placeholder="Write your next task"
-          onChange={() => {
-            clearErrors("text");
-          }} // Handle input change
+          onKeyDown={() => {
+            clearErrors("text"); // Handle key down event and clear errors
+          }}
           aria-invalid={errors.text ? "true" : "false"} // Indicate if there is an error
         />
         {errors.text && ( // Show error only if submitted and errors exist

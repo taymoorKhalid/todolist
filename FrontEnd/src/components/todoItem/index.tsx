@@ -49,6 +49,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
+    reValidateMode: "onSubmit",
     defaultValues: {
       text: todo.text,
     },
@@ -85,7 +86,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
             <input
               {...register("text")}
               type="text"
-              onChange={() => {
+              onKeyDown={() => {
                 clearErrors("text");
               }}
             />

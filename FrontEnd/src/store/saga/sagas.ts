@@ -8,7 +8,7 @@ import {
   deleteTodoAction,
   updateTodoAction,
   fetchTodosAction,
-} from "../actions/actions";
+} from "../actions/todoActions";
 
 import { authLoginAction } from "../actions/authActions";
 

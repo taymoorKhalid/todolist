@@ -1,0 +1,96 @@
+.todoItem {
+  max-width: 455px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 1px solid #c2b39a;
+  font-size: 16px;
+  color: #fff;
+  padding: 12px;
+}
+
+.item-left {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  gap: 12px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.item-left svg {
+  min-width: 34px; /* Set minimum width */
+  min-height: 34px; /* Set minimum height */
+}
+
+.item-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.item-right button {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.item-right button svg {
+  fill: #c2b39a;
+}
+.edit-form label {
+  width: 70%;
+  position: relative;
+}
+
+.edit-form {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  gap: 8px;
+}
+
+.edit-form input {
+  max-width: 455px;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  width: 70%;
+  padding: 12px;
+  height: 70px;
+  outline: none; /* Remove default input outline */
+}
+
+.edit-form button {
+  background-color: #88ab33;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 30%;
+  font-weight: bold;
+}
+
+.edit-error {
+  color: grey; /* Greyed out text */
+  font-size: 0.9em; /* Slightly smaller font size */
+  position: absolute; /* Positioning it absolutely to avoid affecting layout */
+  bottom: -31px; /* Position below the input field */
+  left: 0; /* Align it with the input field */
+  display: flex;
+  align-items: center; /* Center icon and text vertically */
+  gap: 4px; /* Space between icon and text */
+  opacity: 0.9; /* Slight transparency */
+}
+
+.error-icon {
+  color: green;
+  margin-right: 5px;
+  font-size: 1.2em;
+}

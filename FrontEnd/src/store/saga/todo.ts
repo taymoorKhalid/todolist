@@ -8,9 +8,9 @@ import {
   deleteTodoAction,
   updateTodoAction,
   fetchTodosAction,
-} from "../actions/todoActions";
+} from "../actions/todo";
 
-import { authLoginAction } from "../actions/authActions";
+import { authLoginAction } from "../actions/auth";
 
 function* handleApiError(error: any) {
   const errorMessage = error.response?.data?.message || "An error occurred!";
@@ -60,17 +60,14 @@ function* handleAddTodo(
 function* handleDeleteTodo(
   action: ReturnType<typeof deleteTodoAction.STARTED>
 ): Generator {
-  let id = "";
   try {
-    id = action.payload; // Get the todo id to delete
-    const response: any = yield call(
-      axiosInstance.delete,
-      `/tasks/delete/${id}`
-    );
-    yield put(deleteTodoAction.FULLFILLED(response.data.tasks)); // Dispatch 'success' action
-    toast.success(response.data.message);
+    const id = action.payload; // Get the task ID to delete
+    yield call(axiosInstance.delete, `/tasks/delete/${id}`);
+    yield put(deleteTodoAction.FULLFILLED(id)); // Dispatch 'success' action with task ID
+    toast.success("Task deleted successfully.");
   } catch (error: any) {
-    const errorMessage = error.response?.data?.message;
+    const errorMessage =
+      error.response?.data?.message || "Failed to delete task.";
     yield put(deleteTodoAction.REJECTED(errorMessage)); // Dispatch 'failure' action
     yield call(handleApiError, error);
   }
@@ -79,21 +76,20 @@ function* handleDeleteTodo(
 function* handleUpdateTodo(
   action: ReturnType<typeof updateTodoAction.STARTED>
 ): Generator {
-  let id = action.payload.id;
-  let text = action.payload.text;
   try {
-    // Check if we need to update text or toggle status
+    const { id, text } = action.payload;
     const response: any = yield call(
       axiosInstance.patch,
       `/tasks/update/${id}`,
-      text ? { text } : {} // Only send the text if it's provided (for editing)
+      text ? { text } : {}
     );
 
-    yield put(updateTodoAction.FULLFILLED(response.data.tasks)); // Dispatch 'success' action with the updated tasks
+    yield put(updateTodoAction.FULLFILLED(response.data.task)); // Pass only the updated task
     toast.success(response.data.message);
   } catch (error: any) {
-    const errorMessage = error.response?.data?.message;
-    yield put(updateTodoAction.REJECTED(errorMessage)); // Dispatch 'failure' action
+    const errorMessage =
+      error.response?.data?.message || "Failed to update task.";
+    yield put(updateTodoAction.REJECTED(errorMessage));
     yield call(handleApiError, error);
   }
 }

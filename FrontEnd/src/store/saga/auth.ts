@@ -6,10 +6,8 @@ import {
   authLoginAction,
   authLogoutAction,
   authSignupAction,
-} from "../actions/authActions";
+} from "../actions/auth";
 import axios from "axios";
-
-// Mocked API login function (you would replace this with your actual login API call)
 
 function* handleLogin(
   action: ReturnType<typeof authLoginAction.STARTED>

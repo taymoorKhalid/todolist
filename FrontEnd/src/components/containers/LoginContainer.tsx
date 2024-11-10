@@ -2,7 +2,7 @@
 import { connect } from "react-redux";
 import Login from "../../pages/Login";
 import { RootState } from "../../store/store";
-import { authLoginAction } from "../../store/actions/authActions";
+import { authLoginAction } from "../../store/actions/auth";
 
 const mapStateToProps = (state: RootState) => ({
   isLoading: state.auth.isLoading,

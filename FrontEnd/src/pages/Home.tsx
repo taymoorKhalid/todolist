@@ -5,7 +5,7 @@ import TodoFormContainer from "../components/containers/TodoFormContainer";
 import TodoListContainer from "../components/containers/TodoListContainer";
 import HeaderContainer from "../components/containers/HeaderContainer";
 import { useDispatch } from "react-redux";
-import { authLoginAction } from "../store/actions/authActions";
+import { authLoginAction } from "../store/actions/auth";
 import { toast } from "react-toastify";
 
 import "./home.css";

@@ -4,7 +4,7 @@ import {
   deleteTodoAction,
   // editTodoAction,
   updateTodoAction,
-} from "../../store/actions/todoActions";
+} from "../../store/actions/todo";
 
 import TodoItem from "../todoItem";
 

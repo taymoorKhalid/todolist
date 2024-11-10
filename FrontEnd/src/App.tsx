@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "./store/store";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { authLoginAction } from "./store/actions/authActions";
+import { authLoginAction } from "./store/actions/auth";
 import SignupContainer from "./components/containers/SignupContainer";
 import { ToastContainer } from "react-toastify";
 

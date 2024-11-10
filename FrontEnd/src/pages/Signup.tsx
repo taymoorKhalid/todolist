@@ -1,45 +1,17 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import icons from "../assets/svg/icons";
 import InputField from "../shared/Input"; // Import the InputField component
-import "./signup.css";
 import Loader from "../shared/Loader";
+import { signupSchema } from "../Validations/validations";
+import * as yup from "yup";
 
+import "./signup.css";
 // Validation Schema
-const schema = yup.object().shape({
-  firstName: yup.string().required("First name is required"),
-  lastName: yup.string().required("Last name is required"),
-  email: yup.string().email().required(),
-  age: yup
-    .number()
-    .min(18, "Must be at least 18")
-    .max(151, "Must be less than 151")
-    .required(),
-  notificationEmails: yup
-    .string()
-    .required("At least one notification email is required")
-    .matches(
-      /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+(,\s*[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)*$/,
-      "Please enter valid comma-separated emails"
-    ),
-  contactNumber: yup.string().length(11, "Must be 11 digits"),
-  password: yup
-    .string()
-    .required()
-    .min(8, "Password must be at least 8 characters")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
-      "Password must have one uppercase, lowercase, and digit"
-    ),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password")], "Passwords must match"),
-});
 
-export type FormValues = yup.InferType<typeof schema>;
+type FormValues = yup.InferType<typeof signupSchema>;
 
 interface SignupProps {
   onSignup: (data: { email: string; password: string }) => void;
@@ -53,7 +25,7 @@ const Signup: React.FC<SignupProps> = ({ onSignup, isLoading }) => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<FormValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(signupSchema),
     mode: "onChange",
   });
 

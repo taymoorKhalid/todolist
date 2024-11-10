@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { RootState } from "../../store/store";
-import { fetchTodosAction } from "../../store/actions/todoActions";
+import { fetchTodosAction } from "../../store/actions/todo";
 import TodoList from "../todoList";
 
 const mapStateToProps = (state: RootState) => {
@@ -11,7 +11,7 @@ const mapStateToProps = (state: RootState) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-  fetchTodos: () => dispatch(fetchTodosAction.STARTED()), // Corrected to return an object
+  fetchTodos: () => dispatch(fetchTodosAction.STARTED()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

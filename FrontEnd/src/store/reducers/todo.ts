@@ -54,13 +54,13 @@ const todoReducer = (state = initialState, action: any) => {
     case TodoActionTypes.DELETE_TODO_SUCCESS:
       return {
         ...state,
-        todos: action.payload, // Use the full updated tasks array from API response
+        todos: state.todos.filter((todo) => todo.id !== action.payload), // Filter out the deleted task
       };
 
     case TodoActionTypes.DELETE_TODO_FAILURE:
       return {
         ...state,
-        error: "Failed to delete todo",
+        error: action.payload, // Use the error message from the action
       };
 
     case TodoActionTypes.UPDATE_TODO_REQUEST:
@@ -72,13 +72,15 @@ const todoReducer = (state = initialState, action: any) => {
     case TodoActionTypes.UPDATE_TODO_SUCCESS:
       return {
         ...state,
-        todos: action.payload, // Use the full updated tasks array from API response
+        todos: state.todos.map((todo) =>
+          todo.id === action.payload.id ? action.payload : todo
+        ),
       };
 
     case TodoActionTypes.UPDATE_TODO_FAILURE:
       return {
         ...state,
-        error: "Failed to update todo",
+        error: action.payload,
       };
 
     default:

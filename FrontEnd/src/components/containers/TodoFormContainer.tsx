@@ -3,7 +3,7 @@
 import { connect } from "react-redux";
 import TodoForm from "../todoForm";
 import { TODO } from "../../types/types";
-import { addTodoAction } from "../../store/actions/todoActions";
+import { addTodoAction } from "../../store/actions/todo";
 
 const mapDispatchToProps = (dispatch: any) => ({
   addTodo: (todo: TODO) => dispatch(addTodoAction.STARTED(todo)),

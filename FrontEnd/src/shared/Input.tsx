@@ -1,22 +1,20 @@
-import React from "react";
-import { UseFormRegister } from "react-hook-form";
-import { FormValues } from "../pages/Signup";
+import { UseFormRegister, FieldValues, Path } from "react-hook-form";
 
-interface InputFieldProps {
-  name: keyof FormValues; // Name typed with FormValues
+interface InputFieldProps<T extends FieldValues> {
+  name: Path<T>; // Allows `name` to be typed as a key of the form's type
   type: string;
   placeholder: string;
-  register: UseFormRegister<FormValues>; // Register typed with FieldValues
+  register: UseFormRegister<T>; // Generic type for `register`
   errorMessage?: string;
 }
 
-const Input: React.FC<InputFieldProps> = ({
+const InputField = <T extends FieldValues>({
   name,
   type,
   placeholder,
   register,
   errorMessage,
-}) => {
+}: InputFieldProps<T>) => {
   return (
     <div className="input-field">
       <input type={type} placeholder={placeholder} {...register(name)} />
@@ -25,4 +23,4 @@ const Input: React.FC<InputFieldProps> = ({
   );
 };
 
-export default Input;
+export default InputField;

@@ -1,6 +1,6 @@
 // containers/LoginContainer.tsx
 import { connect } from "react-redux";
-import { authLogoutAction } from "../../store/actions/authActions";
+import { authLogoutAction } from "../../store/actions/auth";
 import Header from "../header";
 
 const mapDispatchToProps = (dispatch: any) => ({

@@ -5,13 +5,10 @@ import icons from "../assets/svg/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Loader from "../shared/Loader";
+import InputField from "../shared/Input";
+import { loginSchema } from "../Validations/validations";
 
-const schema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().required(),
-});
-
-type LoginFormValues = yup.InferType<typeof schema>;
+type LoginFormValues = yup.InferType<typeof loginSchema>;
 
 interface LoginProps {
   onLogin: (email: string, password: string) => void;
@@ -26,7 +23,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, isLoading }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(loginSchema),
     mode: "onSubmit",
   });
   const navigate = useNavigate();
@@ -42,14 +39,25 @@ const Login: React.FC<LoginProps> = ({ onLogin, isLoading }) => {
           {logo}
           <h1>Login</h1>
         </div>
-        <input placeholder="Email" {...register("email")} />
-        {errors.email && <p>{errors.email?.message}</p>}
-        <input
+
+        {/* Use InputField for the email input */}
+        <InputField
+          name="email"
+          type="email"
+          placeholder="Email"
+          register={register}
+          errorMessage={errors.email?.message}
+        />
+
+        {/* Use InputField for the password input */}
+        <InputField
+          name="password"
           type="password"
           placeholder="Password"
-          {...register("password")}
+          register={register}
+          errorMessage={errors.password?.message}
         />
-        {errors.password && <p>{errors.password?.message}</p>}
+
         <button type="submit">Login</button>
         <button type="button" onClick={() => navigate("/signup")}>
           Create an account

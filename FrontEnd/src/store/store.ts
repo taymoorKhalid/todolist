@@ -1,12 +1,12 @@
 // store/store.ts
 
 import { configureStore } from "@reduxjs/toolkit";
-import todoReducer from "./reducers/todoReducers";
-import authReducer from "./reducers/authReducer"; // Import the auth reducer
+import todoReducer from "./reducers/todo";
+import authReducer from "./reducers/auth"; // Import the auth reducer
 
 import createSagaMiddleware from "redux-saga";
-import todoSaga from "./saga/sagas"; // Import todo saga
-import authSaga from "./saga/authSaga"; // Import auth saga
+import todoSaga from "./saga/todo"; // Import todo saga
+import authSaga from "./saga/auth"; // Import auth saga
 
 const sagaMiddleware = createSagaMiddleware();
 

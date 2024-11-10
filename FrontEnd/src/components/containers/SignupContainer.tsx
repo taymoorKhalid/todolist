@@ -1,7 +1,7 @@
 // containers/SignupContainer.tsx
 import { connect } from "react-redux";
-import Signup from "../../pages/Signup"; // Replace with the path to your Signup component
-import { authSignupAction } from "../../store/actions/authActions";
+import Signup from "../../pages/Signup";
+import { authSignupAction } from "../../store/actions/auth";
 import { RootState } from "../../store/store";
 
 const mapStateToProps = (state: RootState) => ({

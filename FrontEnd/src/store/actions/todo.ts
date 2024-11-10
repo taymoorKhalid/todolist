@@ -32,11 +32,11 @@ export const fetchTodosAction = {
 export const deleteTodoAction = {
   STARTED: (id: string) => ({
     type: TodoActionTypes.DELETE_TODO_REQUEST,
-    payload: id, // Pass the id instead of index
+    payload: id,
   }),
-  FULLFILLED: (tasks: Task[]) => ({
+  FULLFILLED: (id: string) => ({
     type: TodoActionTypes.DELETE_TODO_SUCCESS,
-    payload: tasks,
+    payload: id,
   }),
   REJECTED: (error: string) => ({
     type: TodoActionTypes.DELETE_TODO_FAILURE,
@@ -47,11 +47,11 @@ export const deleteTodoAction = {
 export const updateTodoAction = {
   STARTED: (id: string, text?: string) => ({
     type: TodoActionTypes.UPDATE_TODO_REQUEST,
-    payload: { id, text }, // text is optional for toggle
+    payload: { id, text },
   }),
-  FULLFILLED: (tasks: Task[]) => ({
+  FULLFILLED: (task: Task) => ({
     type: TodoActionTypes.UPDATE_TODO_SUCCESS,
-    payload: tasks,
+    payload: task,
   }),
   REJECTED: (error: string) => ({
     type: TodoActionTypes.UPDATE_TODO_FAILURE,

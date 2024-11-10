@@ -63,7 +63,8 @@ function* handleDeleteTodo(
   try {
     const id = action.payload; // Get the task ID to delete
     yield call(axiosInstance.delete, `/tasks/delete/${id}`);
-    yield put(deleteTodoAction.FULLFILLED(id)); // Dispatch 'success' action with task ID
+    yield put(deleteTodoAction.FULLFILLED()); // Indicate successful deletion
+    yield put(fetchTodosAction.STARTED()); // Trigger re-fetching todos to update the state
     toast.success("Task deleted successfully.");
   } catch (error: any) {
     const errorMessage =
@@ -78,14 +79,14 @@ function* handleUpdateTodo(
 ): Generator {
   try {
     const { id, text } = action.payload;
-    const response: any = yield call(
+    yield call(
       axiosInstance.patch,
       `/tasks/update/${id}`,
       text ? { text } : {}
     );
-
-    yield put(updateTodoAction.FULLFILLED(response.data.task)); // Pass only the updated task
-    toast.success(response.data.message);
+    yield put(updateTodoAction.FULLFILLED()); // Indicate successful update
+    yield put(fetchTodosAction.STARTED()); // Trigger re-fetching todos to update the state
+    toast.success("Task updated successfully.");
   } catch (error: any) {
     const errorMessage =
       error.response?.data?.message || "Failed to update task.";
@@ -93,7 +94,6 @@ function* handleUpdateTodo(
     yield call(handleApiError, error);
   }
 }
-
 // Watcher Saga
 function* watchTodoActions() {
   yield takeEvery(TodoActionTypes.ADD_TODO_REQUEST, handleAddTodo);

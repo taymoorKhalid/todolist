@@ -34,9 +34,8 @@ export const deleteTodoAction = {
     type: TodoActionTypes.DELETE_TODO_REQUEST,
     payload: id,
   }),
-  FULLFILLED: (id: string) => ({
+  FULLFILLED: () => ({
     type: TodoActionTypes.DELETE_TODO_SUCCESS,
-    payload: id,
   }),
   REJECTED: (error: string) => ({
     type: TodoActionTypes.DELETE_TODO_FAILURE,
@@ -49,9 +48,8 @@ export const updateTodoAction = {
     type: TodoActionTypes.UPDATE_TODO_REQUEST,
     payload: { id, text },
   }),
-  FULLFILLED: (task: Task) => ({
+  FULLFILLED: () => ({
     type: TodoActionTypes.UPDATE_TODO_SUCCESS,
-    payload: task,
   }),
   REJECTED: (error: string) => ({
     type: TodoActionTypes.UPDATE_TODO_FAILURE,

@@ -4,7 +4,8 @@ import icons from "../../assets/svg/icons";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Loader from "../../shared/Loader";
-import * as yup from "yup";
+import { todoSchema } from "../../Validations/todo";
+import InputField from "../../shared/Input";
 
 import "./style.css";
 
@@ -20,14 +21,6 @@ interface TodoItemProps {
   onDeleteTodo: (id: string) => void; // Pass ID to delete
   onEditTodo: (id: string, newText: string) => void; // Pass ID to edit
 }
-
-const schema = yup.object().shape({
-  text: yup
-    .string()
-    .required("This field is required")
-    .min(3, "Task should be at least 3 characters")
-    .matches(/^[a-zA-Z\s]+$/, "Task should only contain letters"),
-});
 
 interface FormData {
   text: string;
@@ -48,7 +41,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
     clearErrors,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(todoSchema),
     reValidateMode: "onSubmit",
     defaultValues: {
       text: todo.text,
@@ -78,24 +71,25 @@ const TodoItem: React.FC<TodoItemProps> = ({
     setIsEditing(false);
   };
 
+  const handleKeyDown = () => {
+    clearErrors("text");
+  };
+
   return (
     <li className="todoItem">
       {isEditing ? (
         <form className="edit-form" onSubmit={handleSubmit(handleEditSubmit)}>
           <label>
-            <input
-              {...register("text")}
+            <InputField
+              name="text"
               type="text"
-              onKeyDown={() => {
-                clearErrors("text");
-              }}
+              className="edit-error"
+              placeholder="Write your next task"
+              register={register}
+              errorMessage={errors.text?.message}
+              showErrorIcon={true}
+              onKeyDown={handleKeyDown} // Pass the handler to InputField (optional)
             />
-            {errors.text && (
-              <span role="alert" className="edit-error">
-                <i className="fas fa-exclamation-circle error-icon"></i>
-                {errors.text.message}
-              </span>
-            )}
           </label>
           <Button type="submit" disabled={loading}>
             Save
@@ -122,8 +116,6 @@ const TodoItem: React.FC<TodoItemProps> = ({
                 onToggleTodo(todo.id);
               }}
             >
-              {" "}
-              {/* Pass ID here */}
               {toggle({ todo })}
               <p
                 style={{

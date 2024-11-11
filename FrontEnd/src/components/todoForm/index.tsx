@@ -1,25 +1,17 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { todoSchema } from "../../Validations/todo";
 
 import Button from "../../shared/Button";
 import icons from "../../assets/svg/icons";
+import InputField from "../../shared/Input";
 
 import "./style.css";
 
 interface TodoFormProps {
   addTodo: (todo: { text: string; isCompleted: boolean }) => void;
 }
-
-// Define Yup validation schema
-const schema = yup.object().shape({
-  text: yup
-    .string()
-    .required("This field is required")
-    .min(3, "Task should be at least 3 characters")
-    .matches(/^[a-zA-Z\s]+$/, "Task should only contain letters"),
-});
 
 interface FormData {
   text: string;
@@ -33,7 +25,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
     clearErrors,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(todoSchema),
     reValidateMode: "onSubmit",
   });
 
@@ -42,25 +34,24 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
     reset(); // Clear form input after submission
   };
 
+  const handleKeyDown = () => {
+    clearErrors("text");
+  };
+
   return (
     <form className="form" onSubmit={handleSubmit(formSubmitHandler)}>
       <label htmlFor="todo">
-        <input
-          {...register("text")} // Register the input
-          id="todo"
+        <InputField
+          name="text"
           type="text"
+          id="todo"
+          className="error"
           placeholder="Write your next task"
-          onKeyDown={() => {
-            clearErrors("text"); // Handle key down event and clear errors
-          }}
-          aria-invalid={errors.text ? "true" : "false"} // Indicate if there is an error
+          register={register}
+          errorMessage={errors.text?.message}
+          showErrorIcon={true}
+          onKeyDown={handleKeyDown} // Pass the handler to InputField (optional)
         />
-        {errors.text && ( // Show error only if submitted and errors exist
-          <span role="alert" className="error">
-            <i className="fas fa-exclamation-circle error-icon"></i>
-            {errors.text?.message}
-          </span>
-        )}
       </label>
       <Button type="submit" ariaLabel="Submit">
         {icons.add}

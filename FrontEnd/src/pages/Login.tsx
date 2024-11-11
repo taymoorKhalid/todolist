@@ -47,6 +47,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, isLoading }) => {
           placeholder="Email"
           register={register}
           errorMessage={errors.email?.message}
+          showErrorIcon={false}
         />
 
         {/* Use InputField for the password input */}
@@ -56,6 +57,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, isLoading }) => {
           placeholder="Password"
           register={register}
           errorMessage={errors.password?.message}
+          showErrorIcon={false}
         />
 
         <button type="submit">Login</button>

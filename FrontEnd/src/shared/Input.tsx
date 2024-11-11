@@ -1,11 +1,15 @@
 import { UseFormRegister, FieldValues, Path } from "react-hook-form";
 
 interface InputFieldProps<T extends FieldValues> {
-  name: Path<T>; // Allows `name` to be typed as a key of the form's type
+  name: Path<T>;
   type: string;
   placeholder: string;
-  register: UseFormRegister<T>; // Generic type for `register`
+  register: UseFormRegister<T>;
   errorMessage?: string;
+  id?: string;
+  showErrorIcon?: boolean; // New prop to control the display of the error icon
+  className?: string;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }
 
 const InputField = <T extends FieldValues>({
@@ -14,12 +18,30 @@ const InputField = <T extends FieldValues>({
   placeholder,
   register,
   errorMessage,
+  id,
+  className,
+  onKeyDown,
+  showErrorIcon = false, // Default to false if not provided
 }: InputFieldProps<T>) => {
   return (
-    <div className="input-field">
-      <input type={type} placeholder={placeholder} {...register(name)} />
-      {errorMessage && <p>{errorMessage}</p>}
-    </div>
+    <>
+      <input
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        {...register(name)}
+        aria-invalid={errorMessage ? "true" : "false"} // Accessibility attribute for error state
+        onKeyDown={onKeyDown}
+      />
+      {errorMessage && (
+        <span className={className}>
+          {showErrorIcon && (
+            <i className="fas fa-exclamation-circle error-icon"></i> // Only render if showErrorIcon is true
+          )}
+          <p className="error-message">{errorMessage}</p>
+        </span>
+      )}
+    </>
   );
 };
 

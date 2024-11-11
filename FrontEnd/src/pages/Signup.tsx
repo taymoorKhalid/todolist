@@ -49,6 +49,7 @@ const Signup: React.FC<SignupProps> = ({ onSignup, isLoading }) => {
           placeholder="First Name"
           register={register}
           errorMessage={errors.firstName?.message}
+          showErrorIcon={false}
         />
         <InputField
           name="lastName"
@@ -56,6 +57,7 @@ const Signup: React.FC<SignupProps> = ({ onSignup, isLoading }) => {
           placeholder="Last Name"
           register={register}
           errorMessage={errors.lastName?.message}
+          showErrorIcon={false}
         />
         <InputField
           name="email"
@@ -63,6 +65,7 @@ const Signup: React.FC<SignupProps> = ({ onSignup, isLoading }) => {
           placeholder="Email"
           register={register}
           errorMessage={errors.email?.message}
+          showErrorIcon={false}
         />
         <InputField
           name="age"
@@ -70,6 +73,7 @@ const Signup: React.FC<SignupProps> = ({ onSignup, isLoading }) => {
           placeholder="Age"
           register={register}
           errorMessage={errors.age?.message}
+          showErrorIcon={false}
         />
         <InputField
           name="notificationEmails"
@@ -77,6 +81,7 @@ const Signup: React.FC<SignupProps> = ({ onSignup, isLoading }) => {
           placeholder="Notification Emails"
           register={register}
           errorMessage={errors.notificationEmails?.message}
+          showErrorIcon={false}
         />
         <InputField
           name="contactNumber"
@@ -84,6 +89,7 @@ const Signup: React.FC<SignupProps> = ({ onSignup, isLoading }) => {
           placeholder="Contact Number"
           register={register}
           errorMessage={errors.contactNumber?.message}
+          showErrorIcon={false}
         />
 
         <InputField
@@ -92,6 +98,7 @@ const Signup: React.FC<SignupProps> = ({ onSignup, isLoading }) => {
           placeholder="Password"
           register={register}
           errorMessage={errors.password?.message}
+          showErrorIcon={false}
         />
         <InputField
           name="confirmPassword"
@@ -99,6 +106,7 @@ const Signup: React.FC<SignupProps> = ({ onSignup, isLoading }) => {
           placeholder="Confirm Password"
           register={register}
           errorMessage={errors.confirmPassword?.message}
+          showErrorIcon={false}
         />
         <button type="submit" disabled={!isValid}>
           Signup

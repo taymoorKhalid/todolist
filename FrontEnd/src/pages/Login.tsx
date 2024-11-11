@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Loader from "../shared/Loader";
 import InputField from "../shared/Input";
-import { loginSchema } from "../Validations/validations";
+import { loginSchema } from "../Validations/login";
 
 type LoginFormValues = yup.InferType<typeof loginSchema>;
 

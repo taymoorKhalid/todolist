@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import icons from "../assets/svg/icons";
 import InputField from "../shared/Input"; // Import the InputField component
 import Loader from "../shared/Loader";
-import { signupSchema } from "../Validations/validations";
+import { signupSchema } from "../Validations/signup";
 import * as yup from "yup";
 
 import "./signup.css";

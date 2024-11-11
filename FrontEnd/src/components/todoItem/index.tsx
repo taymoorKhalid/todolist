@@ -40,6 +40,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
     setFocus,
     clearErrors,
     formState: { errors },
+    reset,
   } = useForm<FormData>({
     resolver: yupResolver(todoSchema),
     reValidateMode: "onSubmit",
@@ -69,6 +70,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
 
   const handleCancelEdit = () => {
     setIsEditing(false);
+    reset({ text: todo.text });
   };
 
   const handleKeyDown = () => {
@@ -131,9 +133,12 @@ const TodoItem: React.FC<TodoItemProps> = ({
             </Button>
           )}
           <div className="item-right">
-            <Button onClick={() => setIsEditing(true)} disabled={loading}>
+            <Button
+              onClick={() => setIsEditing(true)}
+              disabled={loading || todo.isCompleted}
+            >
               <span className="visually-hidden">Edit</span>
-              {edit}
+              {edit({ disabled: loading || todo.isCompleted })}
             </Button>
 
             <Button
